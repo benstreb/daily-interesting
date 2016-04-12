@@ -7,3 +7,8 @@ from . import models
 def test_page():
     page = models.Page.objects.create(title="Test", body="Body")
     assert list(models.Page.objects.filter(title="Test", body="Body")) == [page]
+
+
+@pytest.mark.django_db
+def test_index(client):
+    page = models.Page.objects.create(title="")

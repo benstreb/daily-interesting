@@ -1,8 +1,14 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en-US">
-<meta charset="utf-8">
-<title>{% block title %}{% endblock %}</title>
 <head>
-  {% block content %}{% endblock %}
+  <meta charset="utf-8">
+  <title>{% block title %}{% endblock %}</title>
+  <link rel="stylesheet" type="text/css" href="{% static 'daily_interesting/css/bootstrap.css' %}">
 </head>
+<body>
+<div class="container">
+  {% block content %}{% endblock %}
+</div>
+</body>
 </html>

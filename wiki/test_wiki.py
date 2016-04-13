@@ -1,6 +1,6 @@
 import pytest
 
-from . import models
+from . import models, forms
 
 
 @pytest.fixture
@@ -20,3 +20,8 @@ def test_index(client, pages):
     response = client.get("/wiki/")
     assert response.status_code == 200
     assert b'Test Title' in response.content
+
+
+def test_page_form():
+    form = forms.PageForm({"title": "Title", "body": "Body"})
+    assert form.is_valid()

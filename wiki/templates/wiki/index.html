@@ -3,6 +3,9 @@
 {% block title %}Wiki{% endblock %}
 
 {% block content %}
+<div class="row">
+  <h3><a href="{% url 'wiki:new_page' %}">Create a new page</a></h3>
+</div>
 {% for page in pages %}
 <div class="row">
   <div class="col-md-12">

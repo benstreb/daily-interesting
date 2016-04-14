@@ -8,4 +8,5 @@ from . import views
 app_name = "wiki"
 urlpatterns = [
     url(r"^$", views.IndexView.as_view(), name="index"),
+    url(r"^new$", views.NewPageView.as_view(), name="new_page"),
 ]

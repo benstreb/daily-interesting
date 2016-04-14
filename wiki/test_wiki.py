@@ -10,6 +10,16 @@ def parse_html(html):
 
 
 @pytest.fixture
+def index_url():
+    return reverse("wiki:index")
+
+
+@pytest.fixture
+def new_page_url():
+    return reverse("wiki:new_page")
+
+
+@pytest.fixture
 @pytest.mark.django_db
 def pages():
     models.Page.objects.create(title="Test Title", body="Body")
@@ -29,17 +39,14 @@ def test_index(client, pages):
 
 
 @pytest.mark.django_db
-def test_index_links_to_page(client):
-    index_url = reverse("wiki:index")
-    new_page_url = reverse("wiki:new_page")
+def test_index_links_to_page(client, index_url, new_page_url):
     response = client.get(index_url)
     html = parse_html(response.content)
     assert html.find("a", href=new_page_url)
 
 
 @pytest.mark.django_db
-def test_new_page_view(client):
-    new_page_url = reverse("wiki:new_page")
+def test_new_page_view(client, new_page_url):
     new_page_data = {
         "title": "test_new_page_view",
         "body": "Body",

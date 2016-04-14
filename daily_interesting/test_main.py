@@ -1,11 +1,11 @@
 """Test cases for the base site
 """
 
-import pytest
 from django.core.urlresolvers import reverse
 from django.template import loader
 
 from . import views
+from .testing import parse_html
 
 
 def test_base_template(rf):
@@ -14,10 +14,12 @@ def test_base_template(rf):
     template.render({}, request)
 
 
-@pytest.mark.skip
 def test_index_view(client):
     response = client.get("/")
-    assert b"app_roots" in response.content
+    html = parse_html(response.content)
+    index_element = html.find("a", href=reverse("wiki:index"))
+    assert index_element
+    assert index_element.string == "Wiki"
     assert response.status_code == 200
 
 

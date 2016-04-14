@@ -11,7 +11,7 @@ class IndexView(TemplateView):
     template_name = "daily_interesting/index.html"
 
     def get_context_data(self, **kwargs):
-        return {"app_roots": []}
+        return {"app_roots": IndexView.get_app_roots()}
 
     @staticmethod
     def get_app_roots():

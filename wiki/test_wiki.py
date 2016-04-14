@@ -1,12 +1,8 @@
 import pytest
-from bs4 import BeautifulSoup
 from django.core.urlresolvers import reverse
 
+from daily_interesting.testing import parse_html
 from . import models, forms
-
-
-def parse_html(html):
-    return BeautifulSoup(html, "html.parser")
 
 
 @pytest.fixture

@@ -2,4 +2,10 @@
 
 {% block title %}Daily Interesting Projects{% endblock %}
 
-{% block content %}Hello World{% endblock %}
+{% block content %}
+{% for app_name, app_url in app_roots %}
+<div class="row">
+  <a href="{{ app_url }}">{{app_name}}</a>
+</div>
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,12 @@
+{% macro show_form(form) %}
+<div class="row">
+  {% for field in form %}
+  <div class="col-md-2">
+    {{ field.label }}
+  </div>
+  <div class="col-md-12">
+    {{ field }}
+  </div>
+  {% endfor %}
+</div>
+{% endmacro %}

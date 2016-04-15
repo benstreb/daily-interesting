@@ -1,11 +1,12 @@
 {% extends "daily_interesting/base.html" %}
+{% from "daily_interesting/macros.html" import show_form %}
 
 {% block title %}New page{% endblock %}
 
 {% block content %}
 <form method="POST">
-  {{ csrf_token }}
-  {{ form }}
-  <input type="submit">
+  <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+  {{ show_form(form) }}
+  <input type="submit" value="Create">
 </form>
 {% endblock %}

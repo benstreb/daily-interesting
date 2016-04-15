@@ -51,6 +51,7 @@ def test_new_page_view(client, new_page_url):
     assert response.status_code == 200
     html = parse_html(response.content)
     assert html.find("input", type="submit")
+    assert html.find("input", type="hidden", attrs={"name": "csrfmiddlewaretoken"})
     post_response = client.post(new_page_url, new_page_data)
     assert models.Page.objects.filter(title="test_new_page_view").count()
     assert post_response.status_code == 302

@@ -9,7 +9,7 @@
 {% for page in pages %}
 <div class="row">
   <div class="col-md-12">
-    <a href="#">{{page.title}}</a>
+    <a href="{{ url('wiki:page', args=[page.anchor]) }}">{{page.title}}</a>
   </div>
 </div>
 {% endfor %}

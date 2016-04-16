@@ -9,4 +9,5 @@ app_name = "wiki"
 urlpatterns = [
     url(r"^$", views.IndexView.as_view(), name="index"),
     url(r"^new$", views.NewPageView.as_view(), name="new_page"),
+    url(r"^page/(?P<anchor>[-\w]+)$", views.PageView.as_view(), name="page"),
 ]

@@ -18,7 +18,8 @@ def new_page_url():
 @pytest.fixture
 @pytest.mark.django_db
 def pages():
-    models.Page.objects.create(title="Test Title", body="Body")
+    page = models.Page.objects.create(title="Test Title", body="Body")
+    return [page]
 
 
 @pytest.mark.django_db
@@ -29,9 +30,13 @@ def test_page():
 
 @pytest.mark.django_db
 def test_index(client, pages):
+    test_page = pages[0]
     response = client.get("/wiki/")
     assert response.status_code == 200
-    assert b'Test Title' in response.content
+    html = parse_html(response.content)
+    anchor = html.find("a", href=reverse("wiki:page", args=[test_page.anchor]))
+    assert anchor
+    assert anchor.string == test_page.title
 
 
 @pytest.mark.django_db

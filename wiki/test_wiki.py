@@ -23,8 +23,8 @@ def pages():
 
 @pytest.mark.django_db
 def test_page():
-    page = models.Page.objects.create(title="Test", body="Body")
-    assert list(models.Page.objects.filter(title="Test", body="Body")) == [page]
+    page = models.Page.objects.create(title="Test", anchor="anchor", body="Body")
+    assert list(models.Page.objects.filter(title="Test", anchor="anchor", body="Body")) == [page]
 
 
 @pytest.mark.django_db
@@ -45,6 +45,7 @@ def test_index_links_to_page(client, index_url, new_page_url):
 def test_new_page_view(client, new_page_url):
     new_page_data = {
         "title": "test_new_page_view",
+        "anchor": "anchor",
         "body": "Body",
     }
     response = client.get(new_page_url)
@@ -57,6 +58,7 @@ def test_new_page_view(client, new_page_url):
     assert post_response.status_code == 302
 
 
+@pytest.mark.django_db
 def test_page_form():
-    form = forms.PageForm({"title": "Title", "body": "Body"})
+    form = forms.PageForm({"title": "Title", "anchor": "anchor", "body": "Body"})
     assert form.is_valid()

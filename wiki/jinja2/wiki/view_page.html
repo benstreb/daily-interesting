@@ -1,0 +1,17 @@
+{% extends "daily_interesting/base.html" %}
+{% block title %}{{ page.title }}{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col-md-12">
+    <h3>
+      <span id="page-title">{{ page.title }}</span>
+    </h3>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    {{ page.body }}
+  </div>
+</div>
+{% endblock %}

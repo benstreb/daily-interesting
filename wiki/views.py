@@ -17,4 +17,6 @@ class NewPageView(CreateView):
 
 
 class PageView(DetailView):
+    template_name = "wiki/view_page.html"
     model = models.Page
+    slug_field = "anchor"

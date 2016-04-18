@@ -18,14 +18,13 @@ def new_page_url():
 @pytest.fixture
 @pytest.mark.django_db
 def pages():
-    page = models.Page.objects.create(title="Test Title", body="Body")
+    page = models.Page.objects.create(title="Test Title", anchor="anchor", body="Body")
     return [page]
 
 
 @pytest.mark.django_db
-def test_page():
-    page = models.Page.objects.create(title="Test", anchor="anchor", body="Body")
-    assert list(models.Page.objects.filter(title="Test", anchor="anchor", body="Body")) == [page]
+def test_pages(pages):
+    assert list(models.Page.objects.filter(title="Test Title", anchor="anchor", body="Body")) == pages
 
 
 @pytest.mark.django_db
@@ -61,6 +60,17 @@ def test_new_page_view(client, new_page_url):
     post_response = client.post(new_page_url, new_page_data)
     assert models.Page.objects.filter(title="test_new_page_view").count()
     assert post_response.status_code == 302
+
+
+@pytest.mark.django_db
+def test_page_view(client, pages):
+    test_page = pages[0]
+    response = client.get(reverse("wiki:page", args=[test_page.anchor]))
+    assert response.status_code == 200
+    html = parse_html(response.content)
+    assert html.find("div", class_="container")
+    assert html.find("title").string == test_page.title
+    assert html.find(id="page-title").string.strip() == test_page.title
 
 
 @pytest.mark.django_db
